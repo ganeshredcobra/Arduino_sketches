@@ -5,6 +5,8 @@ import processing.serial.*;
 SimpleOpenNI kinect;
 Serial port;
 
+int val=0;
+
 void setup()
 {
   kinect = new SimpleOpenNI(this);
@@ -54,15 +56,16 @@ void draw()
      
       if (convertedRightHand.x > 420 && convertedRightHand.x < 550 && convertedRightHand.y > 35 && convertedRightHand.y < 175)
       {   
-         
+           val=1;
            //println("Forward");
-           port.write(1);
+           port.write(val);
            println("1");
              
       }
       else
       {
-        port.write(0);
+        val=0;
+        port.write(val);
                    println("0")  ;
 
                   // println("x is :"+convertedLeftHand.y);
@@ -70,12 +73,14 @@ void draw()
       }
       if (convertedLeftHand.x > 110 && convertedLeftHand.x < 250 && convertedLeftHand.y > 35 && convertedLeftHand.y < 175)
       {   
-           port.write(2); 
+          val=2;
+           port.write(val); 
            println("2")  ;
       }
       else
       {
-        port.write(0);
+        val=0;
+        port.write(val);
                    println("0")  ;
 
        
