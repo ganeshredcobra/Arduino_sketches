@@ -1,31 +1,34 @@
-int incomingByte;   // for incoming serial data
-
-void setup() {
-        Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
+const int Forward = 12;      // the pin that the LED is attached to
+const int Reverse = 11;
+void setup()
+{
+  // initialize the serial communication:
+  Serial.begin(9600);
+  // initialize the ledPin as an output:
+  pinMode(Forward, OUTPUT);
+    pinMode(Reverse, OUTPUT);
 }
 
 void loop() {
+  byte brightness;
 
-        // send data only when you receive data:
-        //if (Serial.available() > 0) {
-                // read the incoming byte:
-                incomingByte = Serial.read();
-                  int val=(incomingByte,DEC);
-                // say what you got:
-               // Serial.print("I received: ");
-                Serial.println(val);
-                if(incomingByte==65){
-                  digitalWrite(12, LOW);
-                  digitalWrite(13, HIGH);
-                }
-                else if(incomingByte==66){
-                  digitalWrite(13, LOW);
-                  digitalWrite(12, HIGH);
+  // check if data has been sent from the computer:
+  if (Serial.available()) {
+    // read the most recent byte (which will be from 0 to 255):
+    brightness = Serial.read();
+    // set the brightness of the LED:
+    if(brightness==1){
+      digitalWrite(Reverse,LOW);
+      digitalWrite(Forward,HIGH);
 
-                }
-                /*else{
-                   digitalWrite(12, LOW);
-                   digitalWrite(13, LOW);
-                }*/
-        //}
+    }
+    else if(brightness==2){
+      digitalWrite(Forward,LOW);
+      digitalWrite(Reverse,HIGH);
+    }
+    else{
+       digitalWrite(Forward,LOW);
+       digitalWrite(Reverse,LOW);
+    }
+  }
 }
