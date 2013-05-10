@@ -29,13 +29,13 @@ void setup() {
 void draw() {
   while (myPort.available() > 0) {
     char inByte = myPort.readChar();
-    println(inByte);
-    if(inByte=='A'){      
+    //println(inByte);
+    if(inByte=='B'){      
       au_player1.play(); 
       au_player1.rewind();
       //au_player1.loop();    
     }
-    else if(inByte=='B'){      
+    else if(inByte=='A'){      
       au_player2.play();
       au_player2.rewind();
     }   
